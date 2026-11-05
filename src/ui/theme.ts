@@ -12,7 +12,7 @@
  */
 import { validateCustomTheme, type CustomTheme } from '../themes.ts';
 import { applyTabIcon } from './tab.ts';
-import { themeAccent, themeIsDark, themeVars, THEME_VARS } from '../studio-theme.ts';
+import { LEGACY_THEME_VARS, themeAccent, themeIsDark, themeVars, THEME_VARS } from '../studio-theme.ts';
 export { luminance, THEME_VARS, themeVars, themeIsDark, themeAccent, AUTO_LIGHT_PENCIL, AUTO_DARK_PENCIL, type ThemeVars } from '../studio-theme.ts';
 
 const STORAGE_KEY = 'blyg-studio-theme';
@@ -33,6 +33,7 @@ export function applyTheme(
 ) {
   const root = document.documentElement;
   for (const v of THEME_VARS) root.style.removeProperty(`--${v}`);
+  for (const v of LEGACY_THEME_VARS) root.style.removeProperty(`--${v}`);
   const vars = themeVars(name, custom, customDark, prefersDark());
   root.dataset.theme = vars ? 'fixed' : 'auto';
   if (vars)
@@ -43,8 +44,8 @@ export function applyTheme(
   const accent = themeAccent(name, prefersDark(), custom, customDark);
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) meta.setAttribute('content', accent);
-  // The tab icon wears the accent too (tab.ts); `auto` takes studio.css's own on-pencil.
-  applyTabIcon(accent, vars?.['on-pencil'] ?? (dark ? '#0f1314' : '#fafbfb'));
+  // The tab icon wears the accent too; auto takes studio.css's own accent text colour.
+  applyTabIcon(accent, vars?.['color-text-on-accent'] ?? (dark ? '#0f1314' : '#fafbfb'));
   try {
     localStorage.setItem(STORAGE_KEY, vars ? name! : 'auto');
     if (vars && custom) localStorage.setItem(CUSTOM_KEY, JSON.stringify(custom));

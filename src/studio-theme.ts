@@ -11,26 +11,48 @@ import {
 export { luminance };
 
 export const THEME_VARS = [
-  'page',
-  'card',
-  'sunk',
-  'ink',
-  'ink-soft',
-  'page-ink',
-  'page-ink-soft',
-  'rule',
-  'rule-strong',
-  'pencil',
-  'on-pencil',
-  'alert',
-  'ok',
-  'warn',
+  'color-background',
+  'color-layer',
+  'color-field',
+  'color-text-primary',
+  'color-text-secondary',
+  'color-text-primary-on-background',
+  'color-text-secondary-on-background',
+  'color-background-inverse',
+  'color-text-inverse',
+  'color-border-subtle',
+  'color-border-strong',
+  'color-accent',
+  'color-accent-subtle',
+  'color-text-on-accent',
+  'color-support-error',
+  'color-support-error-subtle',
+  'color-support-success',
+  'color-support-success-subtle',
+  'color-support-warning',
+  'color-support-warning-subtle',
+  'color-highlight-generated',
+  'color-focus',
   'shadow',
 ] as const;
 export type ThemeVars = Record<(typeof THEME_VARS)[number], string>;
 
-const STATE_LIGHT = { alert: '#b3261e', ok: '#1c7a52', warn: '#a35a00' };
-const STATE_DARK = { alert: '#f0a19a', ok: '#74c79c', warn: '#e0a75c' };
+/** Transitional aliases for screen CSS that has not migrated to semantic roles yet. */
+export const LEGACY_THEME_VARS = [
+  'page', 'card', 'sunk', 'ink', 'ink-soft', 'page-ink', 'page-ink-soft',
+  'rule', 'rule-strong', 'pencil', 'on-pencil', 'alert', 'ok', 'warn',
+] as const;
+
+const STATE_LIGHT = {
+  'color-support-error': '#b3261e',
+  'color-support-success': '#1c7a52',
+  'color-support-warning': '#a35a00',
+};
+const STATE_DARK = {
+  'color-support-error': '#f0a19a',
+  'color-support-success': '#74c79c',
+  'color-support-warning': '#e0a75c',
+};
 const SHADOW_LIGHT =
   '0 1px 2px rgba(20,30,35,.06), 0 6px 20px rgba(20,30,35,.06)';
 const SHADOW_DARK = '0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.25)';
@@ -54,21 +76,29 @@ export function themeVars(
   // (headings, hints) must read against the page, not the sheet.
   const pageDark = luminance(t.page) < 0.2;
   return {
-    page: t.page,
-    card: t.paper,
-    ink: t.ink,
-    'ink-soft': t.inkSoft,
-    rule: t.rule,
-    pencil: t.pencil,
-    sunk: `color-mix(in srgb, ${t.ink} 6%, ${t.paper})`,
-    'rule-strong': `color-mix(in srgb, ${t.ink} 24%, ${t.paper})`,
-    'on-pencil': t.dark ? t.page : t.paper,
-    'page-ink': pageDark && !t.dark ? t.paper : t.ink,
-    'page-ink-soft':
+    'color-background': t.page,
+    'color-layer': t.paper,
+    'color-text-primary': t.ink,
+    'color-text-secondary': t.inkSoft,
+    'color-border-subtle': t.rule,
+    'color-accent': t.pencil,
+    'color-field': `color-mix(in srgb, ${t.ink} 6%, ${t.paper})`,
+    'color-border-strong': `color-mix(in srgb, ${t.ink} 24%, ${t.paper})`,
+    'color-text-on-accent': t.dark ? t.page : t.paper,
+    'color-text-primary-on-background': pageDark && !t.dark ? t.paper : t.ink,
+    'color-text-secondary-on-background':
       pageDark && !t.dark
         ? `color-mix(in srgb, ${t.paper} 70%, ${t.page})`
         : t.inkSoft,
+    'color-background-inverse': t.ink,
+    'color-text-inverse': t.paper,
     ...(t.dark ? STATE_DARK : STATE_LIGHT),
+    'color-accent-subtle': 'color-mix(in srgb, var(--color-accent) 12%, var(--color-layer))',
+    'color-support-error-subtle': 'color-mix(in srgb, var(--color-support-error) 10%, var(--color-layer))',
+    'color-support-success-subtle': 'color-mix(in srgb, var(--color-support-success) 13%, var(--color-layer))',
+    'color-support-warning-subtle': 'color-mix(in srgb, var(--color-support-warning) 13%, var(--color-layer))',
+    'color-highlight-generated': 'color-mix(in srgb, var(--color-support-warning) 16%, transparent)',
+    'color-focus': 'var(--color-accent)',
     shadow: t.dark ? SHADOW_DARK : SHADOW_LIGHT,
   };
 }
