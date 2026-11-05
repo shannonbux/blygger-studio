@@ -133,3 +133,26 @@ not expose arbitrary padding, margins, or gaps.
 The existing `--s1` through `--s5` names remain aliases during migration.
 One-pixel borders, safe-area insets, and layout-specific measurements such as
 the mobile navigation reservation are not generic spacing tokens.
+
+## Shape and elevation naming decision
+
+Studio preserves its current corner and shadow values in V1. Components select
+the role prescribed for their kind; these internal roles are not selectable
+component-library options.
+
+| Role | Token | Current use |
+| --- | --- | --- |
+| No radius | `--radius-none` | edge-to-edge rows and tabs |
+| Compact radius | `--radius-compact` | compact controls and media |
+| Control radius | `--radius-control` | inputs and standard buttons |
+| Item radius | `--radius-item` | list items and banners |
+| Surface radius | `--radius-surface` | cards |
+| Overlay radius | `--radius-overlay` | sheets and dialogs |
+| Full radius | `--radius-full` | pills, dots, and circular marks |
+| Surface shadow | `--shadow-surface` | cards and raised panes |
+| Floating shadow | `--shadow-floating` | transient floating UI |
+| Overlay shadow | `--shadow-overlay` | sheets and dialogs |
+
+Existing `--radius`, `--radius-sm`, and `--shadow` names remain aliases during
+migration. Future visual review may normalize preserved radius values, but no
+corner or elevation redesign is part of this initial foundation pass.

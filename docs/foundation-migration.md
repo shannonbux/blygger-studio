@@ -33,6 +33,18 @@ unreviewed tokens for every historic CSS literal.
 | SP-006 | Mobile navigation reservation | 104px | **Accepted exception** | Structural space for the fixed bottom navigation; not general component spacing. |
 | SP-007 | Safe-area insets | `env(safe-area-inset-*)` | **Accepted exception** | Device-provided layout safety values, not a Blyg spacing choice. |
 
+## Shape and elevation registry
+
+| ID | Scope | Current value | Status | Candidate resolution |
+| --- | --- | ---: | --- | --- |
+| SH-001 | Shared card radius | 14px | **Migrated** | `--radius-surface`; preserve until Card visual cleanup. |
+| SH-002 | Shared control radius | 8px / 10px | **Migrated** | `--radius-compact` and `--radius-control`; component rules prescribe which applies. |
+| SH-003 | Sheet/dialog radius | 18px | **Migrated** | `--radius-overlay`; preserve until Dialog visual cleanup. |
+| EL-001 | Shared card elevation | theme-aware existing shadow | **Migrated** | `--shadow-surface`. |
+| EL-002 | Sheet elevation | existing upward overlay shadow | **Migrated** | `--shadow-overlay`. |
+| SH-004 | Feature-specific 3px, 4px, 6px, 12px, and 16px corners | varies | **Preserved** | Review within the owning component; do not flatten all corners globally. |
+| EL-003 | Picker, toast, and coach shadows | varies by placement | **Preserved** | Review within Picker, Toast, and floating-feedback component work. |
+
 ## Review protocol
 
 1. Add or update a row before changing an off-scale value.
