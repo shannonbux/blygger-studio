@@ -33,7 +33,7 @@
 .syntax-help { margin: 0 2px var(--space-3); }
 .syntax-help > summary { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; cursor: pointer; font-size: .8rem; color: var(--page-ink-soft); list-style: none; }
 .syntax-help > summary::-webkit-details-marker { display: none; }
-.syntax-help > summary::before { content: "▸"; font-size: .7rem; transition: transform .15s; }
+.syntax-help > summary::before { content: "▸"; font-size: .7rem; transition: transform var(--motion-duration-fast) var(--motion-ease-standard); }
 .syntax-help[open] > summary::before { transform: rotate(90deg); }
 .syntax-help > summary:hover { color: var(--page-ink); }
 .syntax-help > p { margin: var(--space-1) 0 0; font-size: .82rem; }
@@ -41,7 +41,7 @@
 .filters { margin-top: 20px; }
 
 /* Coach mark: where the phone's own scanner lives. */
-.coach { position: absolute; left: 50%; top: 40px; transform: translateX(-50%); z-index: 5; background: var(--ink); color: var(--card); padding: 8px 14px; border-radius: 10px; font-size: .85rem; box-shadow: 0 8px 24px rgba(0,0,0,.25); animation: up .2s ease-out; white-space: nowrap; pointer-events: none; }
+.coach { position: absolute; left: 50%; top: 40px; transform: translateX(-50%); z-index: 5; background: var(--ink); color: var(--card); padding: 8px 14px; border-radius: 10px; font-size: .85rem; box-shadow: 0 8px 24px rgba(0,0,0,.25); animation: up var(--motion-duration-standard) var(--motion-ease-standard); white-space: nowrap; pointer-events: none; }
 .coach::after { content: ""; position: absolute; left: 50%; top: 100%; border: 7px solid transparent; border-top-color: var(--ink); transform: translateX(-50%); }
 .scan-sheet .banner { margin-bottom: 12px; }
 .scan-sheet .banner .body > p { margin: 0 0 6px; }
@@ -51,12 +51,11 @@
 .ocr .sheet-actions { margin-bottom: 8px; }
 
 /* ---------- PUBLISHED banner (Thicket's publish-success) ---------- */
-.published { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: var(--ok-bg); color: var(--ink); border: 1px solid color-mix(in srgb, var(--ok) 45%, transparent); border-radius: var(--radius); padding: 11px 13px; margin-bottom: 14px; box-shadow: var(--shadow); animation: up .25s ease-out; }
+.published { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: var(--ok-bg); color: var(--ink); border: 1px solid color-mix(in srgb, var(--ok) 45%, transparent); border-radius: var(--radius); padding: 11px 13px; margin-bottom: 14px; box-shadow: var(--shadow); animation: up var(--motion-duration-emphasis) var(--motion-ease-standard); }
 .published .mark { width: 24px; height: 24px; border-radius: 999px; display: grid; place-items: center; background: var(--ok); color: var(--card); font-weight: 700; font-size: .85rem; }
 .published .txt { flex: 1; min-width: 0; font-weight: 600; font-size: .92rem; }
 .published .x { background: none; border: none; font-size: 1.2rem; color: var(--ink-soft); cursor: pointer; padding: 0 4px; line-height: 1; }
 .published .acts { flex: 1 0 100%; display: flex; gap: 6px; flex-wrap: wrap; }
-@media (prefers-reduced-motion: reduce) { .published, .coach { animation: none; } }
 
 /* ---------- STALE NOTICE ---------- */
 
@@ -71,7 +70,7 @@
 .item-excerpt { font-size: .84rem; color: var(--ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .item-meta { font-size: .75rem; color: var(--ink-soft); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 2px; }
 .item-meta .unpublished { color: var(--warn); }
-.chev { color: var(--ink-soft); transition: transform .15s; flex: 0 0 auto; font-size: 1.1rem; }
+.chev { color: var(--ink-soft); transition: transform var(--motion-duration-fast) var(--motion-ease-standard); flex: 0 0 auto; font-size: 1.1rem; }
 .item-row.is-open .chev { transform: rotate(90deg); }
 .item-detail { padding: 0 12px 12px; border-top: 1px dashed var(--rule); overflow-wrap: anywhere; }
 .item-detail > div:first-child:not(.quick-edit) { font-size: .92rem; margin: 12px 0 10px; }
@@ -100,7 +99,7 @@
 /* Floating "quote only this": native selection handles sit where a button
    beside the text would be, so it floats like the old reading-view pill. */
 .quote-pills { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(76px + env(safe-area-inset-bottom)); z-index: 40;
-  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; width: max-content; max-width: calc(100vw - 32px); animation: up .2s ease-out; }
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; width: max-content; max-width: calc(100vw - 32px); animation: up var(--motion-duration-standard) var(--motion-ease-standard); }
 .quote-pill { background: var(--ink); color: var(--card); border: none; border-radius: 999px; padding: 10px 18px; font: inherit; font-weight: 600; font-size: .9rem; box-shadow: 0 8px 24px rgba(0,0,0,.25); cursor: pointer; white-space: nowrap; }
 @media (min-width: 900px) {
   .quote-pills { bottom: 24px; }

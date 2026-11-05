@@ -45,6 +45,12 @@ unreviewed tokens for every historic CSS literal.
 | SH-004 | Feature-specific 3px, 4px, 6px, 12px, and 16px corners | varies | **Preserved** | Review within the owning component; do not flatten all corners globally. |
 | EL-003 | Picker, toast, and coach shadows | varies by placement | **Preserved** | Review within Picker, Toast, and floating-feedback component work. |
 
+## Motion registry
+
+| ID | Scope | Current value | Status | Candidate resolution |
+| --- | --- | ---: | --- | --- |
+| MO-001 | Picker entrance | 160ms | **Preserved** | Keep as scoped `--picker-enter-duration`; compare against the 150ms fast role during Picker visual cleanup. |
+
 ## Review protocol
 
 1. Add or update a row before changing an off-scale value.

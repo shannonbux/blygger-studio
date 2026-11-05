@@ -2,12 +2,15 @@
    "type in the editor" mode. Right-hand panel on wide screens, bottom dock on
    a phone. */
 .picker {
+  /* A scoped preserved value: the existing picker entrance is 160ms, not an
+     invitation to add another global duration to the foundation scale. */
+  --picker-enter-duration: 160ms;
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 40;
   width: min(400px, 100vw); display: flex; flex-direction: column; gap: 8px;
   padding: 14px 14px calc(10px + env(safe-area-inset-bottom));
   background: var(--card); color: var(--ink);
   border-left: 1px solid var(--rule-strong); box-shadow: -8px 0 28px rgba(0,0,0,.14);
-  animation: picker-in .16s ease-out;
+  animation: picker-in var(--picker-enter-duration) var(--motion-ease-standard);
 }
 @keyframes picker-in { from { transform: translateX(24px); opacity: 0; } }
 @media (max-width: 640px) {
@@ -20,7 +23,7 @@
 @media (max-width: 640px) {
   .picker.picker-full { top: 0; height: auto; border-top: none; border-radius: 0; padding-top: calc(14px + env(safe-area-inset-top)); }
 }
-@media (prefers-reduced-motion: reduce) { .picker { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .picker { --picker-enter-duration: 0ms; } }
 .picker-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .picker-sub { font-size: .78rem; color: var(--ink-soft); margin-top: 2px; }
 .picker-search { width: 100%; }

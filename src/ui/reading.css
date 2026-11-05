@@ -53,7 +53,7 @@
 [data-dir=left] > .swipe-bg { background: var(--pencil); color: var(--on-pencil); }
 .feed[data-dir=right] > .swipe-bg { background: var(--warn); }
 [data-dir=right] > .swipe-bg .sr, [data-dir=left] > .swipe-bg .sl { visibility: hidden; }
-.armed > .swipe-bg span { transform: scale(1.12); transition: transform .1s; }
+.armed > .swipe-bg span { transform: scale(1.12); transition: transform var(--motion-duration-fastest) var(--motion-ease-standard); }
 .swiping .entry, .swiping .feed-in { user-select: none; }
 
 /* ---------- ENTRIES ---------- */
@@ -317,7 +317,7 @@
 .trail-via { color: var(--ink-soft); }
 .trail-note { font-size: .74rem; color: var(--ink-soft); }
 @media (min-width: 900px) {
-  .sheet.trail-sheet { left: auto; right: 0; top: 0; bottom: 0; width: 380px; max-width: 92vw; max-height: none; transform: none; border-radius: 0; animation: fade .15s; }
+  .sheet.trail-sheet { left: auto; right: 0; top: 0; bottom: 0; width: 380px; max-width: 92vw; max-height: none; transform: none; border-radius: 0; animation: fade var(--motion-duration-fast) var(--motion-ease-standard); }
 }
 
 /* A revised post leads with what changed. */

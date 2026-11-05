@@ -156,3 +156,25 @@ component-library options.
 Existing `--radius`, `--radius-sm`, and `--shadow` names remain aliases during
 migration. Future visual review may normalize preserved radius values, but no
 corner or elevation redesign is part of this initial foundation pass.
+
+## Motion naming decision
+
+Motion provides brief feedback and orientation; it never communicates required
+information. Components choose one of these internal roles instead of an
+arbitrary duration. These values preserve Studio's existing timing.
+
+| Role | Token | Use |
+| --- | --- | --- |
+| Fastest | `--motion-duration-fastest` | direct micro-feedback, such as an armed swipe state |
+| Fast | `--motion-duration-fast` | caret rotation and simple fades |
+| Standard | `--motion-duration-standard` | sheets, toasts, and coach marks entering view |
+| Emphasis | `--motion-duration-emphasis` | a confirmed published state |
+| Standard easing | `--motion-ease-standard` | all V1 interface motion (`ease-out`) |
+
+The existing picker entrance remains a scoped 160ms preserved value rather
+than expanding the global scale for one component. It is tracked in the
+migration registry.
+
+When a person requests reduced motion, these durations become `0ms`. This
+removes nonessential sliding, scaling, and rotation, so the interface moves
+directly to its final state. New motion must follow the same rule.

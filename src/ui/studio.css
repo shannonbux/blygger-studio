@@ -83,6 +83,13 @@
   --space-6: 32px;
   --space-7: 40px;
   --space-8: 48px;
+  /* Motion primitives: components choose the prescribed role rather than a
+     one-off duration. The values retain Studio's established timing. */
+  --motion-duration-fastest: 100ms;
+  --motion-duration-fast: 150ms;
+  --motion-duration-standard: 200ms;
+  --motion-duration-emphasis: 250ms;
+  --motion-ease-standard: ease-out;
   /* Existing aliases stay while screens migrate to the explicit family roles. */
   --sans: var(--font-family-sans);
   --mono: var(--font-family-mono);
@@ -200,7 +207,7 @@ a { color: var(--color-accent); }
 .card-h { font: var(--type-heading-3); margin: 0 0 10px; display: flex; align-items: baseline; gap: var(--space-2); }
 details.card > summary { font-weight: 600; cursor: pointer; color: var(--pencil); list-style: none; display: flex; align-items: center; gap: var(--space-2); }
 details.card > summary::-webkit-details-marker { display: none; }
-details.card > summary::before { content: "▸"; font-size: .8rem; transition: transform .15s; color: var(--ink-soft); }
+details.card > summary::before { content: "▸"; font-size: .8rem; transition: transform var(--motion-duration-fast) var(--motion-ease-standard); color: var(--ink-soft); }
 details.card[open] > summary::before { transform: rotate(90deg); }
 details.card > summary .muted { font-weight: 400; font-size: .8rem; margin-left: auto; }
 details.card[open] > summary { margin-bottom: 12px; }
@@ -365,11 +372,11 @@ button.link { background: none; border: none; padding: 0; font: inherit; color: 
 .actionbar .state b { color: var(--ok); font-weight: 600; }
 
 /* ---------- SHEETS (replace window.confirm / prompt / alert) ---------- */
-.backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(10,15,18,.42); animation: fade .15s ease-out; }
+.backdrop { position: fixed; inset: 0; z-index: 60; background: rgba(10,15,18,.42); animation: fade var(--motion-duration-fast) var(--motion-ease-standard); }
 .sheet {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 61; max-height: 86vh; overflow-y: auto;
   background: var(--card); color: var(--ink); border-radius: var(--radius-overlay) var(--radius-overlay) 0 0; padding: 8px 16px 18px; padding-bottom: max(18px, env(safe-area-inset-bottom));
-  box-shadow: var(--shadow-overlay); animation: up .2s ease-out; outline: none;
+  box-shadow: var(--shadow-overlay); animation: up var(--motion-duration-standard) var(--motion-ease-standard); outline: none;
 }
 .sheet::before { content: ""; display: block; width: 38px; height: 4px; border-radius: 999px; background: var(--rule-strong); margin: 0 auto 12px; }
 .sheet .sheet-title { margin: 0 0 6px; font-size: 1.15rem; overflow-wrap: anywhere; }
@@ -389,10 +396,8 @@ button.link { background: none; border: none; padding: 0; font: inherit; color: 
 .menu-list button:disabled { opacity: .45; cursor: not-allowed; }
 @keyframes up { from { transform: translateY(30px); opacity: .4; } to { transform: none; opacity: 1; } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .sheet, .backdrop, .toast { animation: none; } }
-
 .toast { position: fixed; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 70;
-  background: var(--ink); color: var(--card); padding: 7px 8px 7px 16px; border-radius: 999px; font-size: .85rem; box-shadow: 0 6px 20px rgba(0,0,0,.25); animation: up .2s ease-out; max-width: calc(100vw - 32px); text-align: center;
+  background: var(--ink); color: var(--card); padding: 7px 8px 7px 16px; border-radius: 999px; font-size: .85rem; box-shadow: 0 6px 20px rgba(0,0,0,.25); animation: up var(--motion-duration-standard) var(--motion-ease-standard); max-width: calc(100vw - 32px); text-align: center;
   display: flex; align-items: center; gap: 8px; }
 .toast[data-tone="ok"] { background: var(--ok); color: #fff; }
 .toast-x { background: none; border: 0; color: inherit; opacity: .75; font-size: .8rem; line-height: 1; padding: 4px 6px; border-radius: 999px; cursor: pointer; }
@@ -414,9 +419,21 @@ main.login .btn { width: 100%; }
   body.has-tabs .topbar { margin-left: calc(-1 * var(--rail)); padding-left: 20px; z-index: 35; }
   .actionbar { left: var(--rail); }
   body.no-tabs .actionbar { left: 0; }
-  .sheet { left: 50%; right: auto; width: 520px; max-width: calc(100vw - 32px); transform: translateX(-50%); bottom: auto; top: 12vh; max-height: 76vh; border-radius: 18px; animation: fade .15s; }
+  .sheet { left: 50%; right: auto; width: 520px; max-width: calc(100vw - 32px); transform: translateX(-50%); bottom: auto; top: 12vh; max-height: 76vh; border-radius: 18px; animation: fade var(--motion-duration-fast) var(--motion-ease-standard); }
   .sheet::before { display: none; }
   body.has-tabs .toast { margin-left: calc(var(--rail) / 2); }
+}
+
+/* Motion conveys feedback, never required information. Users who request
+   reduced motion receive the final state immediately, including for scale and
+   translate transitions such as disclosure carets. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration-fastest: 0ms;
+    --motion-duration-fast: 0ms;
+    --motion-duration-standard: 0ms;
+    --motion-duration-emphasis: 0ms;
+  }
 }
 
 /* ======================================================================
