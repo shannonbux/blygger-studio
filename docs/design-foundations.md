@@ -54,9 +54,46 @@ ordinary text roles; page chrome uses the explicit background roles.
 - New tokens require a documented use case; near-duplicate role names are not
   added just to match a one-off component.
 
-## Next implementation step
+## Typography naming decision
 
-Current `main` centralizes theme calculation in `src/studio-theme.ts`. The
-colour migration will adapt that module to emit these semantic roles, preserve
-the current custom-theme behavior, then replace legacy token references in
-small verified batches.
+Studio has two interface font-family roles. They use local system-font stacks,
+so no font is downloaded and the interface remains native to each platform.
+
+| Role | Token | Used for |
+| --- | --- | --- |
+| Interface | `--font-family-sans` | Studio UI, controls, headings, and prose |
+| Code | `--font-family-mono` | Markdown, code, IDs, and technical snippets |
+
+The existing `--sans` and `--mono` names remain aliases during migration.
+They are not the design-system API for new UI.
+
+### Numeric scale
+
+Typography primitives grow from smallest to largest; these numbers describe
+physical scale, not heading importance. `rem` keeps every value relative to a
+reader's browser root size (normally 16px).
+
+| Token | Default equivalent |
+| --- | --- |
+| `--font-size-100` | 12px / `0.75rem` |
+| `--font-size-200` | 14px / `0.875rem` |
+| `--font-size-300` | 16px / `1rem` |
+| `--font-size-400` | 18px / `1.125rem` |
+| `--font-size-500` | 20px / `1.25rem` |
+| `--font-size-600` | 24px / `1.5rem` |
+| `--font-size-700` | 32px / `2rem` |
+
+If a future Studio typeface has an unusually small or large x-height, tune its
+numeric tokens in one central place. The named roles below then adapt together.
+
+### Heading roles
+
+Heading names use document hierarchy, where heading 1 is the most prominent.
+The 32px primitive is reserved until an actual Studio screen needs a display
+style.
+
+| Role | Token | Current use |
+| --- | --- | --- |
+| Heading 1 | `--type-heading-1` | page titles |
+| Heading 2 | `--type-heading-2` | section titles |
+| Heading 3 | `--type-heading-3` | card and subsection titles |

@@ -28,8 +28,8 @@
   --color-background-inverse: #1b2426; --color-text-inverse: #fafbfb;
   --radius: 14px;
   --shadow: 0 1px 2px rgba(20,30,35,.06), 0 6px 20px rgba(20,30,35,.06);
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-family-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   --rail: 92px;
   color-scheme: light;
 }
@@ -47,6 +47,21 @@
   }
 }
 :root {
+  /* Typography primitives: readable at the browser's root size, adaptable to
+     its accessibility setting. Numeric tokens grow with their physical size. */
+  --font-size-100: 0.75rem;
+  --font-size-200: 0.875rem;
+  --font-size-300: 1rem;
+  --font-size-400: 1.125rem;
+  --font-size-500: 1.25rem;
+  --font-size-600: 1.5rem;
+  --font-size-700: 2rem;
+  --type-heading-1: 600 var(--font-size-600) / 1.25 var(--font-family-sans);
+  --type-heading-2: 600 var(--font-size-400) / 1.3 var(--font-family-sans);
+  --type-heading-3: 600 var(--font-size-300) / 1.35 var(--font-family-sans);
+  /* Existing aliases stay while screens migrate to the explicit family roles. */
+  --sans: var(--font-family-sans);
+  --mono: var(--font-family-mono);
   --color-accent-subtle: color-mix(in srgb, var(--color-accent) 12%, var(--color-layer));
   --color-support-success-subtle: color-mix(in srgb, var(--color-support-success) 13%, var(--color-layer));
   --color-support-warning-subtle: color-mix(in srgb, var(--color-support-warning) 13%, var(--color-layer));
@@ -86,14 +101,17 @@ html { -webkit-text-size-adjust: 100%; }
    sideways between short and long screens; on a phone it is a dead strip. */
 @media (min-width: 900px) { html { scrollbar-gutter: stable; } }
 body {
-  font-family: var(--sans); color: var(--color-text-primary); background: var(--color-background);
+  font-family: var(--font-family-sans); color: var(--color-text-primary); background: var(--color-background);
   -webkit-font-smoothing: antialiased; line-height: 1.5; min-height: 100vh;
   /* No double-tap zoom on a quick second tap of a button (iOS waits for, and
      then zooms on, it). Pinch zoom stays: user zoom is never disabled. */
   touch-action: manipulation;
 }
-h1, h2, h3, h4 { font-family: var(--sans); font-weight: 600; letter-spacing: .1px; }
-code, pre, kbd, .mono { font-family: var(--mono); }
+h1, h2, h3, h4 { font-family: var(--font-family-sans); font-weight: 600; letter-spacing: .1px; }
+h1 { font: var(--type-heading-1); }
+h2 { font: var(--type-heading-2); }
+h3, h4 { font: var(--type-heading-3); }
+code, pre, kbd, .mono { font-family: var(--font-family-mono); }
 code { background: var(--color-field); padding: 1px 5px; border-radius: 5px; font-size: .85em; }
 a { color: var(--color-accent); }
 .muted { color: var(--color-text-secondary); }
@@ -136,9 +154,9 @@ a { color: var(--color-accent); }
   box-shadow: var(--shadow); padding: 16px;
 }
 .screen.framed > :first-child { margin-top: 0; }
-.view-h { margin: 4px 2px 4px; font-size: 1.45rem; color: var(--page-ink); }
+.view-h { margin: 4px 2px 4px; font: var(--type-heading-1); color: var(--page-ink); }
 .view-sub { margin: 0 2px 14px; color: var(--page-ink-soft); font-size: .86rem; }
-.section-h { font-weight: 600; font-size: 1.05rem; color: var(--page-ink); margin: 22px 2px 10px; display: flex; align-items: baseline; gap: 8px; }
+.section-h { font: var(--type-heading-2); color: var(--page-ink); margin: 22px 2px 10px; display: flex; align-items: baseline; gap: 8px; }
 .section-h .muted { font-weight: 400; font-size: .8rem; color: var(--page-ink-soft); }
 .list-h { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--page-ink-soft); margin: 18px 4px 6px; display: flex; justify-content: space-between; }
 .page-hint { text-align: center; color: var(--page-ink-soft); font-size: .78rem; margin: 6px 2px 0; }
@@ -152,7 +170,7 @@ a { color: var(--color-accent); }
 }
 .card > :first-child { margin-top: 0; }
 .card > :last-child { margin-bottom: 0; }
-.card-h { font-weight: 600; font-size: 1rem; margin: 0 0 10px; display: flex; align-items: baseline; gap: 8px; }
+.card-h { font: var(--type-heading-3); margin: 0 0 10px; display: flex; align-items: baseline; gap: 8px; }
 details.card > summary { font-weight: 600; cursor: pointer; color: var(--pencil); list-style: none; display: flex; align-items: center; gap: 8px; }
 details.card > summary::-webkit-details-marker { display: none; }
 details.card > summary::before { content: "▸"; font-size: .8rem; transition: transform .15s; color: var(--ink-soft); }
