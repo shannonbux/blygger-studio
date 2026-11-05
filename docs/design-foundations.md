@@ -97,3 +97,17 @@ style.
 | Heading 1 | `--type-heading-1` | page titles |
 | Heading 2 | `--type-heading-2` | section titles |
 | Heading 3 | `--type-heading-3` | card and subsection titles |
+
+### Text roles
+
+Named roles are the interface API. Components should use a named role rather
+than selecting a numeric font-size directly; the numeric scale remains the
+single place to tune the visual size of a family later.
+
+| Role | Token | Current use |
+| --- | --- | --- |
+| Body | `--type-body` | ordinary prose and editor text |
+| Body small | `--type-body-small` | compact supporting copy |
+| Label | `--type-label` | field labels and control text |
+| Meta | `--type-meta` | timestamps, counts, and secondary detail |
+| Code | `--type-code` | Markdown, IDs, and technical values |
