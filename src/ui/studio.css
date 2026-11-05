@@ -64,6 +64,17 @@
   --type-label: 600 var(--font-size-200) / 1.2 var(--font-family-sans);
   --type-meta: 400 var(--font-size-100) / 1.4 var(--font-family-sans);
   --type-code: 400 var(--font-size-200) / 1.5 var(--font-family-mono);
+  /* Spacing primitives: components select named density, while this internal
+     scale keeps their measurements aligned to a 4px rhythm. */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
   /* Existing aliases stay while screens migrate to the explicit family roles. */
   --sans: var(--font-family-sans);
   --mono: var(--font-family-mono);
@@ -83,9 +94,9 @@
   --ok-bg: var(--color-support-success-subtle); --warn-bg: var(--color-support-warning-subtle);
   --alert-bg: var(--color-support-error-subtle); --pencil-bg: var(--color-accent-subtle);
   --tk-bg: var(--color-highlight-generated);
-  /* One scale for the whole studio (spacing, compact controls, radius, muted
-     text), so composer, editor, cards and sheets read as one system. */
-  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
+  /* Existing aliases stay while screens migrate to the explicit scale. */
+  --s1: var(--space-1); --s2: var(--space-2); --s3: var(--space-3);
+  --s4: var(--space-4); --s5: var(--space-5);
   --ctl: 32px;          /* visual height of a compact control */
   --hit: 40px;          /* its minimum tap target */
   --radius-sm: 8px;     /* controls; --radius is cards and sheets */
@@ -137,7 +148,7 @@ a { color: var(--color-accent); }
 .topbar-title a { color: inherit; text-decoration: none; }
 .topbar-title a:focus-visible { outline-color: currentColor; outline-offset: -2px; }
 .topbar-title small { font-weight: 400; font-size: .78rem; opacity: .8; margin-left: 6px; }
-.topbar-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.topbar-actions { display: flex; align-items: center; gap: var(--space-2); flex: 0 0 auto; }
 .tb-btn {
   background: transparent; color: var(--color-text-on-accent); border: 1px solid color-mix(in srgb, var(--color-text-on-accent) 45%, transparent);
   border-radius: 10px; padding: 6px 10px; font-size: .8rem; font-weight: 600; cursor: pointer; text-decoration: none; line-height: 1.2;
@@ -149,14 +160,14 @@ a { color: var(--color-accent); }
 @media (max-width: 440px) { .tb-btn .lbl { display: none; } }
 
 /* ---------- VIEWS ---------- */
-.views { padding: 16px 16px 104px; max-width: 760px; margin: 0 auto; }
+.views { padding: var(--space-4) var(--space-4) 104px; max-width: 760px; margin: 0 auto; }
 .views.wide { max-width: 1240px; }
 /* A screen not yet redesigned sits on one card ("framed"), so its text reads
    against the card — on Slate the page itself is dark. Redesigned screens opt
    out with useChrome({ framed: false }) and lay out their own cards. */
 .screen.framed {
   background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 16px;
+  box-shadow: var(--shadow); padding: var(--space-4);
 }
 .screen.framed > :first-child { margin-top: 0; }
 .view-h { margin: 4px 2px 4px; font: var(--type-heading-1); color: var(--page-ink); }
@@ -165,18 +176,18 @@ a { color: var(--color-accent); }
 .section-h .muted { font-weight: 400; font-size: .8rem; color: var(--page-ink-soft); }
 .list-h { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--page-ink-soft); margin: 18px 4px 6px; display: flex; justify-content: space-between; }
 .page-hint { text-align: center; color: var(--page-ink-soft); font-size: .78rem; margin: 6px 2px 0; }
-.empty { text-align: center; padding: 40px 20px; color: var(--page-ink-soft); }
+.empty { text-align: center; padding: var(--space-7) 20px; color: var(--page-ink-soft); }
 .empty .em { display: block; font-size: 30px; margin-bottom: 10px; opacity: .7; }
 
 /* ---------- CARDS ---------- */
 .card {
   background: var(--card); border: 1px solid var(--rule); border-radius: var(--radius);
-  box-shadow: var(--shadow); padding: 16px; margin-bottom: 14px;
+  box-shadow: var(--shadow); padding: var(--space-4); margin-bottom: 14px;
 }
 .card > :first-child { margin-top: 0; }
 .card > :last-child { margin-bottom: 0; }
-.card-h { font: var(--type-heading-3); margin: 0 0 10px; display: flex; align-items: baseline; gap: 8px; }
-details.card > summary { font-weight: 600; cursor: pointer; color: var(--pencil); list-style: none; display: flex; align-items: center; gap: 8px; }
+.card-h { font: var(--type-heading-3); margin: 0 0 10px; display: flex; align-items: baseline; gap: var(--space-2); }
+details.card > summary { font-weight: 600; cursor: pointer; color: var(--pencil); list-style: none; display: flex; align-items: center; gap: var(--space-2); }
 details.card > summary::-webkit-details-marker { display: none; }
 details.card > summary::before { content: "▸"; font-size: .8rem; transition: transform .15s; color: var(--ink-soft); }
 details.card[open] > summary::before { transform: rotate(90deg); }
@@ -206,7 +217,7 @@ details.card[open] > summary { margin-bottom: 12px; }
 }
 .check { display: flex; gap: 10px; align-items: flex-start; font-size: .9rem; margin: 6px 0 12px; }
 .check input { margin-top: 4px; accent-color: var(--color-accent); }
-.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.row { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
 .row > input { flex: 1; min-width: 0; }
 .spacer { flex: 1; }
 

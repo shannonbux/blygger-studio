@@ -111,3 +111,25 @@ single place to tune the visual size of a family later.
 | Label | `--type-label` | field labels and control text |
 | Meta | `--type-meta` | timestamps, counts, and secondary detail |
 | Code | `--type-code` | Markdown, IDs, and technical values |
+
+## Spacing naming decision
+
+Studio uses an internal 4px spacing scale. Components expose a small named
+density choice when one is needed (for example, compact or default); they do
+not expose arbitrary padding, margins, or gaps.
+
+| Token | Value |
+| --- | ---: |
+| `--space-0` | 0 |
+| `--space-1` | 4px |
+| `--space-2` | 8px |
+| `--space-3` | 12px |
+| `--space-4` | 16px |
+| `--space-5` | 24px |
+| `--space-6` | 32px |
+| `--space-7` | 40px |
+| `--space-8` | 48px |
+
+The existing `--s1` through `--s5` names remain aliases during migration.
+One-pixel borders, safe-area insets, and layout-specific measurements such as
+the mobile navigation reservation are not generic spacing tokens.
