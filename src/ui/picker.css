@@ -5,7 +5,7 @@
   /* A scoped preserved value: the existing picker entrance is 160ms, not an
      invitation to add another global duration to the foundation scale. */
   --picker-enter-duration: 160ms;
-  position: fixed; top: 0; right: 0; bottom: 0; z-index: 40;
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: var(--layer-transient);
   width: min(400px, 100vw); display: flex; flex-direction: column; gap: 8px;
   padding: 14px 14px calc(10px + env(safe-area-inset-bottom));
   background: var(--card); color: var(--ink);

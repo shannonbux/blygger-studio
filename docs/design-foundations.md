@@ -178,3 +178,53 @@ migration registry.
 When a person requests reduced motion, these durations become `0ms`. This
 removes nonessential sliding, scaling, and rotation, so the interface moves
 directly to its final state. New motion must follow the same rule.
+
+## Layout and responsive naming decision
+
+Layout roles describe shared screen structure, not component padding. The
+values below preserve the current Studio shell exactly.
+
+| Role | Token | Current use |
+| --- | --- | --- |
+| Standard content width | `--layout-page-max` | ordinary Studio screens |
+| Wide content width | `--layout-page-max-wide` | multi-column and comparison screens |
+| Page gutter | `--layout-page-gutter` | horizontal page inset and transient-width limit |
+| Mobile navigation reserve | `--layout-mobile-nav-reserve` | space above the fixed bottom navigation |
+| Navigation rail width | `--layout-rail-width` | desktop navigation rail |
+| Desktop overlay width | `--layout-overlay-width` | sheet/dialog maximum width |
+| Overlay gutter | `--layout-overlay-gutter` | minimum desktop inset for sheets/dialogs |
+
+Media-query values remain named conventions in documentation rather than CSS
+variables, because custom properties cannot reliably be used in media queries.
+
+| Name | Boundary | Behavior |
+| --- | --- | --- |
+| Narrow | `≤440px` | compact top-bar labels hide when needed |
+| Compact | `≤640px` | phone picker, sheet, and screen adjustments apply |
+| Rail | `≥900px` | bottom navigation becomes the left navigation rail |
+
+The `641–899px` range is deliberately fluid: it retains the phone navigation
+model while letting content grow naturally. New breakpoints need a documented
+structural reason, not a one-off component adjustment.
+
+### Layering roles
+
+Layer tokens coordinate independent fixed and sticky interfaces. Normal page
+content does not receive a z-index token; it stays in ordinary document flow.
+
+| Role | Token | Current use |
+| --- | --- | --- |
+| Floating | `--layer-floating` | local coach marks and sticky save controls |
+| Sticky | `--layer-sticky` | settings subnavigation |
+| Top bar | `--layer-topbar` | mobile/top-level header |
+| Navigation | `--layer-navigation` | fixed bottom navigation and action bar |
+| Action bar | `--layer-actionbar` | selection bar above bottom navigation |
+| Desktop top bar | `--layer-topbar-desktop` | header above the desktop navigation rail |
+| Transient | `--layer-transient` | picker and floating quote controls |
+| Overlay backdrop | `--layer-overlay-backdrop` | dialog/sheet backdrop |
+| Overlay | `--layer-overlay` | dialog and sheet content |
+| Toast | `--layer-toast` | transient feedback above overlays |
+
+Components must use an existing layer role. A new role is appropriate only
+when it must stack consistently above or below multiple unrelated component
+families.

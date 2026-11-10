@@ -30,7 +30,7 @@ unreviewed tokens for every historic CSS literal.
 | SP-003 | Standard control gaps and insets across Studio | 10px | **Preserved** | Review by component family; determine whether 8px or 12px is visually correct in each context. |
 | SP-004 | Text-field inset | 9px × 11px | **Preserved** | Review as part of Field/Input migration, including focus-ring and touch-target checks. |
 | SP-005 | Standard Button inset | 10px × 15px | **Preserved** | Review as part of Button migration; preserve the control's current height until its variants are reviewed together. |
-| SP-006 | Mobile navigation reservation | 104px | **Accepted exception** | Structural space for the fixed bottom navigation; not general component spacing. |
+| SP-006 | Mobile navigation reservation | 104px | **Migrated** | `--layout-mobile-nav-reserve`; structural layout role, not general component spacing. |
 | SP-007 | Safe-area insets | `env(safe-area-inset-*)` | **Accepted exception** | Device-provided layout safety values, not a Blyg spacing choice. |
 
 ## Shape and elevation registry
@@ -50,6 +50,16 @@ unreviewed tokens for every historic CSS literal.
 | ID | Scope | Current value | Status | Candidate resolution |
 | --- | --- | ---: | --- | --- |
 | MO-001 | Picker entrance | 160ms | **Preserved** | Keep as scoped `--picker-enter-duration`; compare against the 150ms fast role during Picker visual cleanup. |
+
+## Layout registry
+
+| ID | Scope | Current value | Status | Candidate resolution |
+| --- | --- | ---: | --- | --- |
+| LY-001 | Shared Studio content widths | 760px / 1240px | **Migrated** | `--layout-page-max` and `--layout-page-max-wide`. |
+| LY-002 | Desktop navigation rail | 92px | **Migrated** | `--layout-rail-width`. |
+| LY-003 | Desktop sheet/dialog width and inset | 520px / 16px | **Migrated** | `--layout-overlay-width` and `--layout-overlay-gutter`. |
+| LY-004 | Picker and reading-trail widths | 400px / 380px | **Preserved** | Review within Picker and reading-trail component work; do not create global layout tokens for component-specific widths. |
+| LY-005 | Responsive boundaries | 440px / 640px / 900px | **Accepted exception** | Documented structural media-query conventions; CSS custom properties cannot drive media queries. |
 
 ## Review protocol
 
